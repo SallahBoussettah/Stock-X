@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiChevronRight, FiCheck, FiShield, FiCreditCard, FiTruck } from 'react-icons/fi';
+import { FiCheck, FiShield, FiCreditCard, FiTruck } from 'react-icons/fi';
 
 const CheckoutPage = () => {
   const [step, setStep] = useState<1 | 2 | 3>(1);

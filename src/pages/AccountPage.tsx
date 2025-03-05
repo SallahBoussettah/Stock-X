@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiUser, FiPackage, FiHeart, FiSettings, FiCreditCard, FiMapPin, FiLogOut, FiTruck, FiCheck, FiCheckCircle, FiSearch } from 'react-icons/fi';
+import { FiUser, FiPackage, FiHeart, FiSettings, FiCreditCard, FiMapPin, FiLogOut, FiTruck, FiCheck, FiCheckCircle } from 'react-icons/fi';
 
 interface UserProfile {
   firstName: string;
@@ -54,14 +54,11 @@ interface OrderDetails {
 
 const AccountPage = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState('orders');
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [trackingNumber, setTrackingNumber] = useState('');
-  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
-  const [trackingError, setTrackingError] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
   const [isLoadingTracking, setIsLoadingTracking] = useState(false);
 
   useEffect(() => {
@@ -158,7 +155,7 @@ const AccountPage = () => {
         label: 'Order Placed',
         description: 'Your order has been confirmed',
         icon: <FiCheckCircle className="w-6 h-6" />,
-        date: orderDetails?.orderDate,
+        date: selectedOrder?.orderDate,
         completed: true,
         current: status === 'processing'
       },
@@ -166,7 +163,7 @@ const AccountPage = () => {
         label: 'Processing',
         description: 'Your order is being prepared',
         icon: <FiPackage className="w-6 h-6" />,
-        date: status !== 'processing' ? getDateAfterDays(orderDetails?.orderDate || '', 1) : undefined,
+        date: status !== 'processing' ? getDateAfterDays(selectedOrder?.orderDate || '', 1) : undefined,
         completed: status !== 'processing',
         current: status === 'processing'
       },
@@ -175,7 +172,7 @@ const AccountPage = () => {
         description: 'Your order has been shipped',
         icon: <FiTruck className="w-6 h-6" />,
         date: status === 'shipped' || status === 'out-for-delivery' || status === 'delivered' 
-          ? getDateAfterDays(orderDetails?.orderDate || '', 2) 
+          ? getDateAfterDays(selectedOrder?.orderDate || '', 2) 
           : undefined,
         completed: status === 'shipped' || status === 'out-for-delivery' || status === 'delivered',
         current: status === 'shipped'
@@ -185,7 +182,7 @@ const AccountPage = () => {
         description: 'Your order is on its way',
         icon: <FiTruck className="w-6 h-6" />,
         date: status === 'out-for-delivery' || status === 'delivered' 
-          ? getDateAfterDays(orderDetails?.orderDate || '', 4) 
+          ? getDateAfterDays(selectedOrder?.orderDate || '', 4) 
           : undefined,
         completed: status === 'out-for-delivery' || status === 'delivered',
         current: status === 'out-for-delivery'
@@ -194,7 +191,7 @@ const AccountPage = () => {
         label: 'Delivered',
         description: 'Your order has been delivered',
         icon: <FiCheck className="w-6 h-6" />,
-        date: status === 'delivered' ? orderDetails?.estimatedDelivery : undefined,
+        date: status === 'delivered' ? selectedOrder?.estimatedDelivery : undefined,
         completed: status === 'delivered',
         current: status === 'delivered'
       }
@@ -204,9 +201,8 @@ const AccountPage = () => {
   };
 
   const handleTrackOrder = (orderId: string) => {
-    setSelectedOrder(orderId);
+    setSelectedOrder(null);
     setIsLoadingTracking(true);
-    setTrackingError('');
 
     // Simulate API call to fetch order tracking details
     setTimeout(() => {
@@ -245,7 +241,7 @@ const AccountPage = () => {
         }
       };
       
-      setOrderDetails(mockOrderDetails);
+      setSelectedOrder(mockOrderDetails);
       setIsLoadingTracking(false);
     }, 1500);
   };
@@ -337,14 +333,13 @@ const AccountPage = () => {
               </div>
             ) : orders.length > 0 ? (
               <>
-                {selectedOrder && orderDetails && (
+                {selectedOrder && (
                   <div className="mb-8 border-b pb-8">
                     <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-lg font-semibold">Tracking Order: {selectedOrder}</h4>
+                      <h4 className="text-lg font-semibold">Tracking Order: {selectedOrder.orderId}</h4>
                       <button 
                         onClick={() => {
                           setSelectedOrder(null);
-                          setOrderDetails(null);
                         }}
                         className="text-sm text-gray-500 hover:text-gray-700"
                       >
@@ -358,7 +353,7 @@ const AccountPage = () => {
                         <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 md:left-[1.65rem]"></div>
                         
                         <div className="space-y-8">
-                          {getOrderSteps(orderDetails.status).map((step, index) => (
+                          {getOrderSteps(selectedOrder.status).map((step, index) => (
                             <div key={index} className="relative flex items-start">
                               <div 
                                 className={`flex-shrink-0 z-10 w-12 h-12 flex items-center justify-center rounded-full border-2 mr-4 
@@ -394,18 +389,18 @@ const AccountPage = () => {
                       <div>
                         <h5 className="text-md font-semibold mb-3">Shipping Details</h5>
                         <div className="bg-gray-50 p-4 rounded-lg">
-                          <p className="font-medium">{orderDetails.shippingAddress.name}</p>
-                          <p>{orderDetails.shippingAddress.street}</p>
+                          <p className="font-medium">{selectedOrder.shippingAddress.name}</p>
+                          <p>{selectedOrder.shippingAddress.street}</p>
                           <p>
-                            {orderDetails.shippingAddress.city}, {orderDetails.shippingAddress.state} {orderDetails.shippingAddress.zip}
+                            {selectedOrder.shippingAddress.city}, {selectedOrder.shippingAddress.state} {selectedOrder.shippingAddress.zip}
                           </p>
-                          <p>{orderDetails.shippingAddress.country}</p>
+                          <p>{selectedOrder.shippingAddress.country}</p>
                           
                           <div className="mt-4 pt-4 border-t border-gray-200">
                             <p className="font-medium">Delivery Method:</p>
-                            <p>{orderDetails.carrier}</p>
+                            <p>{selectedOrder.carrier}</p>
                             <p className="text-sm text-gray-600 mt-1">
-                              Tracking Number: {orderDetails.trackingNumber}
+                              Tracking Number: {selectedOrder.trackingNumber}
                             </p>
                           </div>
                         </div>
@@ -414,7 +409,7 @@ const AccountPage = () => {
                       <div>
                         <h5 className="text-md font-semibold mb-3">Order Summary</h5>
                         <div className="space-y-4">
-                          {orderDetails.items.map((item) => (
+                          {selectedOrder.items.map((item) => (
                             <div key={item.id} className="flex items-start">
                               <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden mr-4">
                                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -486,7 +481,7 @@ const AccountPage = () => {
                                   onClick={() => handleTrackOrder(order.id)}
                                   className="text-primary hover:text-primary-dark flex items-center"
                                 >
-                                  {isLoadingTracking && selectedOrder === order.id ? (
+                                  {isLoadingTracking && selectedOrder?.orderId === order.id ? (
                                     <span className="flex items-center">
                                       <span className="animate-spin h-3 w-3 mr-1 border-t-2 border-b-2 border-primary rounded-full"></span>
                                       Loading...

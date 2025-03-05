@@ -1,4 +1,4 @@
-import { Product, ProductOption } from './product';
+import { Product } from './product';
 
 export interface CartItem {
   id: string; // Unique ID for this cart item

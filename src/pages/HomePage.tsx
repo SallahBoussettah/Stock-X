@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   // In a real app, these would come from an API
-  const [featuredProducts, setFeaturedProducts] = useState([
+  const [featuredProducts] = useState([
     {
       id: '1',
       name: 'Wireless Headphones',
@@ -32,13 +32,6 @@ const HomePage = () => {
       image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80',
       category: 'Accessories'
     }
-  ]);
-
-  const [categories, setCategories] = useState([
-    { id: 'electronics', name: 'Electronics' },
-    { id: 'fashion', name: 'Fashion' },
-    { id: 'accessories', name: 'Accessories' },
-    { id: 'home', name: 'Home & Kitchen' },
   ]);
 
   return (

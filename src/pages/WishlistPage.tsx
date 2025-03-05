@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiTrash2, FiShare2, FiLogIn } from 'react-icons/fi';
 
 interface WishlistItem {
@@ -12,22 +12,19 @@ interface WishlistItem {
 }
 
 const WishlistPage: React.FC = () => {
+  const [isAuthenticated] = useState(true); // In a real app, this would come from auth state
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check authentication status from localStorage
-    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-    setIsAuthenticated(authStatus);
-
-    // Only fetch wishlist data if authenticated
-    if (authStatus) {
-      fetchWishlist();
-    } else {
-      setIsLoading(false);
-    }
+    // Simulate API call to fetch wishlist
+    fetchWishlist();
+    
+    // In a real app, check authentication status
+    // If not authenticated, redirect to login
+    // if (!isAuthenticated) {
+    //   navigate('/login');
+    // }
   }, []);
 
   const fetchWishlist = () => {

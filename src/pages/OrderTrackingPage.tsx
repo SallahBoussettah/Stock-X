@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { FiPackage, FiTruck, FiCheck, FiCheckCircle, FiPrinter, FiMail, FiAlertCircle, FiSearch } from 'react-icons/fi';
 
 interface OrderStep {
