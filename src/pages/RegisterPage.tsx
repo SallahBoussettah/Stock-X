@@ -116,48 +116,44 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">Create your account</h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link to="/login" className="font-medium text-primary hover:text-primary-dark">
-              Sign in
-            </Link>
-          </p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-xl relative">
+        {/* Decorative elements */}
+        <div className="absolute -top-10 -left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-xl"></div>
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full blur-xl"></div>
         
-        {errors.general && (
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
-            <div className="flex">
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{errors.general}</p>
-              </div>
-            </div>
+        {/* Main card with glassmorphism effect */}
+        <div className="backdrop-blur-xl bg-white bg-opacity-10 rounded-2xl shadow-2xl border border-white border-opacity-20 p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 pointer-events-none"></div>
+          
+          <div className="text-center relative">
+            <h2 className="text-3xl font-bold text-white mb-1">Create Account</h2>
+            <p className="text-white/80 text-sm mb-8">
+              Join our community of shoppers
+            </p>
           </div>
-        )}
-        
-        {successMessage && (
-          <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
-            <div className="flex">
-              <div className="ml-3">
-                <p className="text-sm text-green-700">{successMessage}</p>
-              </div>
+          
+          {errors.general && (
+            <div className="mb-6 bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-xl p-4">
+              <p className="text-sm text-white">{errors.general}</p>
             </div>
-          </div>
-        )}
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+          )}
+          
+          {successMessage && (
+            <div className="mb-6 bg-green-500/20 backdrop-blur-sm border border-green-500/30 rounded-xl p-4">
+              <p className="text-sm text-white">{successMessage}</p>
+            </div>
+          )}
+          
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="firstName" className="block text-sm font-medium text-white/90 mb-1 ml-1">
                   First name
                 </label>
-                <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiUser className="h-5 w-5 text-gray-400" />
+                    <FiUser className="h-5 w-5 text-white/60" />
                   </div>
                   <input
                     id="firstName"
@@ -166,22 +162,22 @@ const RegisterPage = () => {
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`block w-full pl-10 form-input ${errors.firstName ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    className={`block w-full pl-10 px-4 py-3 bg-white/10 border ${errors.firstName ? 'border-red-400' : 'border-white/20'} focus:border-white/40 rounded-xl text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-200`}
                     placeholder="John"
                   />
                 </div>
                 {errors.firstName && (
-                  <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>
+                  <p className="mt-1 text-sm text-red-300 ml-1">{errors.firstName}</p>
                 )}
               </div>
               
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="lastName" className="block text-sm font-medium text-white/90 mb-1 ml-1">
                   Last name
                 </label>
-                <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiUser className="h-5 w-5 text-gray-400" />
+                    <FiUser className="h-5 w-5 text-white/60" />
                   </div>
                   <input
                     id="lastName"
@@ -190,23 +186,23 @@ const RegisterPage = () => {
                     autoComplete="family-name"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className={`block w-full pl-10 form-input ${errors.lastName ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    className={`block w-full pl-10 px-4 py-3 bg-white/10 border ${errors.lastName ? 'border-red-400' : 'border-white/20'} focus:border-white/40 rounded-xl text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-200`}
                     placeholder="Doe"
                   />
                 </div>
                 {errors.lastName && (
-                  <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>
+                  <p className="mt-1 text-sm text-red-300 ml-1">{errors.lastName}</p>
                 )}
               </div>
             </div>
             
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-white/90 mb-1 ml-1">
                 Email address
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiMail className="h-5 w-5 text-gray-400" />
+                  <FiMail className="h-5 w-5 text-white/60" />
                 </div>
                 <input
                   id="email"
@@ -215,22 +211,22 @@ const RegisterPage = () => {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`block w-full pl-10 form-input ${errors.email ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : ''}`}
-                  placeholder="you@example.com"
+                  className={`block w-full pl-10 px-4 py-3 bg-white/10 border ${errors.email ? 'border-red-400' : 'border-white/20'} focus:border-white/40 rounded-xl text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-200`}
+                  placeholder="your@email.com"
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-sm text-red-300 ml-1">{errors.email}</p>
               )}
             </div>
             
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-white/90 mb-1 ml-1">
                 Password
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiLock className="h-5 w-5 text-gray-400" />
+                  <FiLock className="h-5 w-5 text-white/60" />
                 </div>
                 <input
                   id="password"
@@ -239,14 +235,14 @@ const RegisterPage = () => {
                   autoComplete="new-password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`block w-full pl-10 pr-10 form-input ${errors.password ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : ''}`}
+                  className={`block w-full pl-10 px-4 py-3 bg-white/10 border ${errors.password ? 'border-red-400' : 'border-white/20'} focus:border-white/40 rounded-xl text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-200`}
                   placeholder="••••••••"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    className="text-white/70 hover:text-white focus:outline-none transition duration-200"
                   >
                     {showPassword ? (
                       <FiEyeOff className="h-5 w-5" />
@@ -257,20 +253,20 @@ const RegisterPage = () => {
                 </div>
               </div>
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600">{errors.password}</p>
+                <p className="mt-1 text-sm text-red-300 ml-1">{errors.password}</p>
               )}
-              <p className="mt-1 text-xs text-gray-500">
-                Must be at least 8 characters and include uppercase, lowercase, and numbers
+              <p className="mt-1 text-sm text-white/60 ml-1">
+                Must be at least 8 characters with uppercase, lowercase, and numbers
               </p>
             </div>
             
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-white/90 mb-1 ml-1">
                 Confirm password
               </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiLock className="h-5 w-5 text-gray-400" />
+                  <FiLock className="h-5 w-5 text-white/60" />
                 </div>
                 <input
                   id="confirmPassword"
@@ -279,14 +275,14 @@ const RegisterPage = () => {
                   autoComplete="new-password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`block w-full pl-10 pr-10 form-input ${errors.confirmPassword ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : ''}`}
+                  className={`block w-full pl-10 px-4 py-3 bg-white/10 border ${errors.confirmPassword ? 'border-red-400' : 'border-white/20'} focus:border-white/40 rounded-xl text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-200`}
                   placeholder="••••••••"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    className="text-white/70 hover:text-white focus:outline-none transition duration-200"
                   >
                     {showConfirmPassword ? (
                       <FiEyeOff className="h-5 w-5" />
@@ -297,11 +293,11 @@ const RegisterPage = () => {
                 </div>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-2 text-sm text-red-600">{errors.confirmPassword}</p>
+                <p className="mt-1 text-sm text-red-300 ml-1">{errors.confirmPassword}</p>
               )}
             </div>
             
-            <div className="flex items-start">
+            <div className="flex items-start mt-4">
               <div className="flex items-center h-5">
                 <input
                   id="acceptTerms"
@@ -309,43 +305,43 @@ const RegisterPage = () => {
                   type="checkbox"
                   checked={formData.acceptTerms}
                   onChange={handleChange}
-                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  className="h-4 w-4 border-2 border-white/30 rounded bg-white/5 checked:bg-indigo-500 focus:ring-2 focus:ring-white/40"
                 />
               </div>
               <div className="ml-3 text-sm">
-                <label htmlFor="acceptTerms" className="font-medium text-gray-700">
-                  I accept the{' '}
-                  <Link to="/terms" className="text-primary hover:text-primary-dark">
-                    Terms and Conditions
-                  </Link>{' '}
-                  and{' '}
-                  <Link to="/privacy-policy" className="text-primary hover:text-primary-dark">
-                    Privacy Policy
-                  </Link>
+                <label htmlFor="acceptTerms" className="text-white/80">
+                  I agree to the <Link to="/terms" className="text-white hover:text-white/90 underline">Terms of Service</Link> and <Link to="/privacy-policy" className="text-white hover:text-white/90 underline">Privacy Policy</Link>
                 </label>
                 {errors.acceptTerms && (
-                  <p className="mt-1 text-sm text-red-600">{errors.acceptTerms}</p>
+                  <p className="mt-1 text-sm text-red-300">{errors.acceptTerms}</p>
                 )}
               </div>
             </div>
-          </div>
+            
+            <div className="mt-6">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full flex justify-center items-center py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition duration-200 transform hover:translate-y-[-2px]"
+              >
+                {isLoading ? (
+                  <svg className="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : null}
+                {isLoading ? 'Creating account...' : 'Create account'}
+              </button>
+            </div>
+          </form>
           
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-            >
-              {isLoading ? (
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              ) : null}
-              Create Account
-            </button>
-          </div>
-        </form>
+          <p className="mt-8 text-center text-sm text-white/70">
+            Already have an account?{' '}
+            <Link to="/login" className="font-medium text-white hover:text-white/90 transition duration-200">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
