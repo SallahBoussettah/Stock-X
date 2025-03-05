@@ -59,6 +59,44 @@ A sophisticated and conversion-optimized e-commerce template built with React, T
    http://localhost:5173
    ```
 
+## Deployment
+
+### Deploy to Netlify
+
+This project is configured for easy deployment to Netlify. You can deploy in two ways:
+
+#### Option 1: Continuous Deployment from GitHub
+
+1. Fork or clone this repository to your GitHub account
+2. Create a new site in Netlify and connect it to your GitHub repository
+3. Netlify will automatically detect the build settings from the `netlify.toml` file
+4. Your site will be deployed and will automatically update when you push changes to GitHub
+
+#### Option 2: Deploy with Netlify CLI
+
+1. Install Netlify CLI (already added as a dev dependency):
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. Login to Netlify:
+   ```bash
+   netlify login
+   ```
+
+3. Deploy using the integrated script:
+   ```bash
+   npm run deploy
+   ```
+
+#### Custom Domain
+
+After deployment, you can configure a custom domain in the Netlify dashboard:
+
+1. Go to your site settings in Netlify
+2. Click on "Domain settings"
+3. Add your custom domain and follow the DNS configuration instructions
+
 ## Project Structure
 
 ```
